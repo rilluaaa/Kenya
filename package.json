@@ -1,32 +1,30 @@
 {
-  "name": "care-begins-at-home",
-  "version": "0.1.0",
+  "name": "ready-together",
   "private": true,
+  "version": "0.1.0",
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint .",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --pretty false"
   },
   "dependencies": {
-    "@phosphor-icons/react": "^2.1.10",
-    "next": "^15.4.4",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "@fontsource-variable/archivo": "latest",
+    "@fontsource/atkinson-hyperlegible": "latest",
+    "@phosphor-icons/react": "latest",
+    "motion": "latest",
+    "react": "latest",
+    "react-dom": "latest"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.11",
-    "@types/node": "^22.15.0",
-    "@types/react": "^19.1.9",
-    "@types/react-dom": "^19.1.7",
-    "eslint": "^9.31.0",
-    "eslint-config-next": "^15.4.4",
-    "jsdom": "^26.1.0",
-    "tailwindcss": "^4.1.11",
-    "typescript": "^5.8.3",
-    "vitest": "^3.2.4"
+    "@tailwindcss/vite": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "latest",
+    "prettier": "^3.9.6",
+    "tailwindcss": "latest",
+    "typescript": "latest",
+    "vite": "latest"
   }
 }
