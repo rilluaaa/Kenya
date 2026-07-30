@@ -1,5 +1,20 @@
-const CACHE = "care-home-v1";
-const CORE = ["/", "/choose-mode", "/scenarios", "/scenarios/amina-birth-plan", "/quick-tools", "/quick-tools/birth-plan", "/quick-tools/learning-cards", "/guided-visit", "/results", "/about-safety", "/offline.html", "/manifest.webmanifest"];
+const CACHE = "care-home-v2";
+const BASE = new URL(self.registration.scope).pathname.replace(/\/$/, "");
+const scopedPath = (path) => `${BASE}${path}`;
+const CORE = [
+  "/",
+  "/choose-mode/",
+  "/scenarios/",
+  "/scenarios/amina-birth-plan/",
+  "/quick-tools/",
+  "/quick-tools/birth-plan/",
+  "/quick-tools/learning-cards/",
+  "/guided-visit/",
+  "/results/",
+  "/about-safety/",
+  "/offline.html",
+  "/manifest.webmanifest",
+].map(scopedPath);
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE)).then(() => self.skipWaiting()));
@@ -15,5 +30,5 @@ self.addEventListener("fetch", (event) => {
     const copy = response.clone();
     caches.open(CACHE).then((cache) => cache.put(event.request, copy));
     return response;
-  }).catch(async () => (await caches.match(event.request)) || (event.request.mode === "navigate" ? caches.match("/offline.html") : Response.error())));
+  }).catch(async () => (await caches.match(event.request)) || (event.request.mode === "navigate" ? caches.match(scopedPath("/offline.html")) : Response.error())));
 });

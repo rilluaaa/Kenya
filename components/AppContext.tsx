@@ -35,7 +35,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       setHydrated(true);
     }
     if ("serviceWorker" in navigator && process.env.NODE_ENV === "production") {
-      navigator.serviceWorker.register("/sw.js").catch(() => undefined);
+      const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+      navigator.serviceWorker.register(`${basePath}/sw.js`).catch(() => undefined);
     }
   }, []);
 
