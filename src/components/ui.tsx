@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes } from "react";
 import { SealCheck } from "@phosphor-icons/react";
 import { reviewNotice } from "../data/content";
 
@@ -7,7 +7,7 @@ export function Button({
   className = "",
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary" | "quiet";
+  variant?: "primary" | "secondary";
 }) {
   return (
     <button className={`button button-${variant} ${className}`} {...props} />
@@ -43,8 +43,4 @@ export function SectionIntro({
       {body ? <p>{body}</p> : null}
     </header>
   );
-}
-
-export function StatusText({ children }: { children: ReactNode }) {
-  return <span className="status-text">{children}</span>;
 }

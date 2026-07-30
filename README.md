@@ -26,7 +26,7 @@ The production output is written to `dist/`.
 
 ```text
 src/
-  components/              Reusable story, decision, readiness, plan, and accessibility UI
+  components/              Reusable story, decision, plan, and accessibility UI
   context/                 Theme, text-size, and reduced-motion preferences
   data/content.ts          Editable educational copy, choices, explanations, and checklist data
   App.tsx                  Story flow and branching state
@@ -39,7 +39,7 @@ DESIGN.md                  Visual design-system contract
 
 ## Replace medically reviewed content
 
-Edit `src/data/content.ts`. The readiness topics, assumption statements, explanations, story choices, consequences, checklist items, and professional-review notice are stored as structured data rather than embedded in presentation components.
+Edit `src/data/content.ts`. The scene labels, assumption statements, explanations, story choices, consequences, checklist items, and professional-review notice are stored as structured data rather than embedded in presentation components.
 
 Before public use:
 
@@ -69,4 +69,4 @@ The prototype has no backend. Readiness choices, story choices, and plan entries
 
 ## Accessibility
 
-The experience includes semantic headings and landmarks, keyboard-operable controls, visible focus, large touch targets, manual text-size and motion controls, system reduced-motion support, light and dark palettes, responsive image crops, and print styling for the plan summary.
+The experience renders one scene at a time and moves focus to each newly revealed scene. It also includes semantic headings and landmarks, keyboard-operable controls, visible focus, large touch targets, manual text-size and motion controls, system reduced-motion support, light and dark palettes, responsive image crops, and print styling for the plan summary.

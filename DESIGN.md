@@ -81,7 +81,7 @@ components:
 
 **Creative North Star: "The Family Planning Table"**
 
-The interface behaves like a family gradually placing decisions, contacts, and responsibilities onto one shared table. Tactile paper surfaces and full-width illustrated scenes make preparation feel human and collective, while strong editorial type keeps every step legible on a small phone.
+The interface behaves like a family revealing one illustrated page at a time, then placing decisions, contacts, and responsibilities onto one shared table. Tactile paper surfaces make preparation feel human and collective, while strong editorial type keeps every step legible on a small phone.
 
 The supplied screen-printed illustration set is visual authority. Interface texture is quieter than the artwork, with restrained grain, broad color fields, and a single terracotta action color.
 
@@ -108,7 +108,7 @@ Forest carries trust and structure; terracotta is reserved for primary action; s
 
 ## Layout
 
-The story uses a mobile-first single column. On desktop, scenes become asymmetric editorial spreads with 12-column placement, oversized image crops, and quiet margins. Each decision collapses to one focused mobile screen with content above thumb-reachable controls. Primary containers cap at 1440px.
+The route renders one story scene at a time. Continue actions replace the current scene; later scenes do not exist in the DOM until reached. On desktop, scenes become asymmetric editorial spreads with oversized image crops and quiet margins. On mobile, every scene collapses to one focused screen with content above thumb-reachable controls. The family-plan scene may scroll because it contains the full editable plan. Primary containers cap at 1440px.
 
 ## Elevation & Depth
 
@@ -134,14 +134,14 @@ Labels always sit above fields. Inputs use paper-white surfaces, charcoal text, 
 
 ### Navigation
 
-The compact top bar shows the product name, a word-based journey state, and accessibility controls. It remains one line on desktop and reduces to essential controls on mobile.
+The compact top bar shows the product name, the current scene label and count, and accessibility controls. It never links to unrevealed scenes. It remains one line on desktop and reduces to essential controls on mobile.
 
 ## Do's and Don'ts
 
 ### Do:
 
 - **Do** let the illustrations carry emotional tone and environment.
-- **Do** show readiness through language such as Ready, Discussed, Needs discussion, and Needs a backup.
+- **Do** reveal only the current scene and one obvious next action.
 - **Do** keep all consequences supportive and reversible.
 - **Do** preserve generous tap targets and visible focus.
 

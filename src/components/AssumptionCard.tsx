@@ -1,14 +1,15 @@
-import { ArrowCounterClockwise, ArrowRight } from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useAccessibility } from "../context/AccessibilityContext";
 import { assumptionResponseLabels, assumptions } from "../data/content";
 import { Button, MedicalReviewNotice } from "./ui";
 
-export function AssumptionCard() {
+export function AssumptionCard({ onComplete }: { onComplete: () => void }) {
   const [index, setIndex] = useState(0);
   const [choice, setChoice] = useState<string | null>(null);
   const revealRef = useRef<HTMLDivElement>(null);
+  const topicRef = useRef<HTMLDivElement>(null);
   const { reduceMotion } = useAccessibility();
   const current = assumptions[index];
   const isLast = index === assumptions.length - 1;
@@ -20,9 +21,20 @@ export function AssumptionCard() {
     return () => cancelAnimationFrame(frame);
   }, [choice]);
 
+  useEffect(() => {
+    if (index === 0) return;
+
+    const timeout = window.setTimeout(
+      () => topicRef.current?.focus(),
+      reduceMotion ? 0 : 450,
+    );
+    return () => window.clearTimeout(timeout);
+  }, [index, reduceMotion]);
+
   function advance() {
     if (isLast) {
-      setIndex(0);
+      onComplete();
+      return;
     } else {
       setIndex((value) => value + 1);
     }
@@ -31,7 +43,14 @@ export function AssumptionCard() {
 
   return (
     <div className="assumption-shell">
-      <div className="assumption-topic">{current.topic}</div>
+      <div
+        ref={topicRef}
+        className="assumption-topic"
+        tabIndex={-1}
+        aria-label={`${current.topic}: ${current.statement}`}
+      >
+        {current.topic}
+      </div>
       <AnimatePresence mode="wait">
         <motion.div
           key={current.id}
@@ -68,16 +87,8 @@ export function AssumptionCard() {
               <p className="your-answer">You chose: {choice}</p>
               <p>{current.explanation}</p>
               <Button onClick={advance}>
-                {isLast ? "Check again" : "Next statement"}
-                {isLast ? (
-                  <ArrowCounterClockwise
-                    size={20}
-                    weight="bold"
-                    aria-hidden="true"
-                  />
-                ) : (
-                  <ArrowRight size={20} weight="bold" aria-hidden="true" />
-                )}
+                {isLast ? "Continue the story" : "Next statement"}
+                <ArrowRight size={20} weight="bold" aria-hidden="true" />
               </Button>
             </motion.div>
           )}

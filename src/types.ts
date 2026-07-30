@@ -1,10 +1,4 @@
-export type ReadinessStatus =
-  "still-to-decide" | "discussed" | "ready" | "needs-backup";
-
 export type PlanStatus = "ready" | "needs-discussion" | "not-arranged";
-
-export type ReadinessId =
-  "what-we-need" | "getting-there" | "who-we-contact" | "who-does-what";
 
 export type PerspectiveId = "amina" | "supporter" | "promoter";
 

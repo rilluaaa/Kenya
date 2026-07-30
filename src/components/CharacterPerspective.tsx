@@ -10,11 +10,16 @@ export function CharacterPerspective() {
   const { reduceMotion } = useAccessibility();
   const perspective = perspectives.find((item) => item.id === active)!;
 
-  function moveTab(event: KeyboardEvent<HTMLButtonElement>, currentIndex: number) {
+  function moveTab(
+    event: KeyboardEvent<HTMLButtonElement>,
+    currentIndex: number,
+  ) {
     let nextIndex = currentIndex;
-    if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % perspectives.length;
+    if (event.key === "ArrowRight")
+      nextIndex = (currentIndex + 1) % perspectives.length;
     if (event.key === "ArrowLeft") {
-      nextIndex = (currentIndex - 1 + perspectives.length) % perspectives.length;
+      nextIndex =
+        (currentIndex - 1 + perspectives.length) % perspectives.length;
     }
     if (event.key === "Home") nextIndex = 0;
     if (event.key === "End") nextIndex = perspectives.length - 1;
