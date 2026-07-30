@@ -16,11 +16,11 @@ Ready Together helps a family discuss and record practical childbirth preparatio
 
 ## Positioning
 
-The product turns preparation guidance into one continuous, choice-driven family story. Readiness is expressed through reassuring states and practical consequences, never a score or examination.
+The product turns preparation guidance into a choice-driven family story revealed one scene at a time. Each scene remains hidden until the family completes the current conversation and chooses to continue.
 
 ## Operating Context
 
-The experience is self-guided, takes approximately 8-12 minutes, and is used by two or more people around one phone. It combines preparation cards, assumption checks, a branching story about Amina and her family, and a family-plan builder. Progress is retained only for the current browser session.
+The experience is self-guided, takes approximately 8-12 minutes, and is used by two or more people around one phone. It combines a preparation scene, assumption checks, a branching story about Amina and her family, and a family-plan builder. Only the current scene is rendered. Progress is retained only for the current browser session.
 
 ## Capabilities and Constraints
 
@@ -46,6 +46,7 @@ The product name is Ready Together. The voice is warm, direct, reassuring, respe
 - Preparation is a shared family responsibility.
 - Explain consequences without blame.
 - Turn every learning moment into a practical decision.
+- Reveal one focused scene at a time. Never preview later content before the family continues.
 - Keep the experience usable on one shared, low-cost phone.
 - Make uncertainty and unfinished planning feel normal and actionable.
 

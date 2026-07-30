@@ -1,44 +1,37 @@
 /*
-THESIS: A family gradually puts one shared birth-preparation plan on the table. It refuses the quiz and dashboard patterns common to health education.
+THESIS: A family reveals one part of a shared preparation story at a time. Nothing ahead appears until the current conversation is complete.
 OWN-WORLD: Forest and paper fields, terracotta action, tactile illustrated scenes, compact editorial sans type, and handled-paper decisions.
-STORY: The family prepares, checks assumptions, follows Amina through changing circumstances, sees consequences, and records a practical plan.
+STORY: The family prepares, checks assumptions, listens to each other, makes two decisions, sees the consequence, and records a practical plan.
 FIRST VIEWPORT: Amina and Nia at home at night fill the right side. A single urgent question and action sit low on the left.
-FORM: A continuous illustrated story with decision cards and scene transitions, grounded in the supplied six-image visual set.
+FORM: A gated, single-scene story. Each action replaces the current scene with the next, with no preview of future content.
 */
 import {
   ArrowCounterClockwise,
   ArrowRight,
   LockKey,
 } from "@phosphor-icons/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { assetPath } from "./assetPath";
-import { useEffect, useMemo, useState } from "react";
 import { AssumptionCard } from "./components/AssumptionCard";
 import { CharacterPerspective } from "./components/CharacterPerspective";
 import { FamilyPlanBuilder } from "./components/FamilyPlanBuilder";
 import { HeroScene } from "./components/HeroScene";
 import { ProgressNavigation } from "./components/ProgressNavigation";
-import { ReadinessCard } from "./components/ReadinessCard";
-import { ReadinessProgress } from "./components/ReadinessProgress";
 import { StoryDecision } from "./components/StoryDecision";
 import { StoryOutcome } from "./components/StoryOutcome";
 import { StorySection } from "./components/StorySection";
 import { Button, MedicalReviewNotice, SectionIntro } from "./components/ui";
+import { useAccessibility } from "./context/AccessibilityContext";
 import {
   firstDecisionChoices,
   pageCopy,
   planItems,
-  readinessCards,
+  storyStages,
   transportChoicesWithBackup,
   transportChoicesWithoutBackup,
 } from "./data/content";
-import type { FamilyPlan, ReadinessId, ReadinessStatus } from "./types";
-
-const defaultReadiness: Record<ReadinessId, ReadinessStatus> = {
-  "what-we-need": "still-to-decide",
-  "getting-there": "still-to-decide",
-  "who-we-contact": "still-to-decide",
-  "who-does-what": "still-to-decide",
-};
+import type { FamilyPlan } from "./types";
 
 function createEmptyPlan(): FamilyPlan {
   return Object.fromEntries(
@@ -50,41 +43,51 @@ function createEmptyPlan(): FamilyPlan {
 }
 
 type SessionState = {
-  readiness: Record<ReadinessId, ReadinessStatus>;
+  stage: number;
   firstDecision: string | null;
   transportDecision: string | null;
   plan: FamilyPlan;
 };
 
 const storageKey = "ready-together-session";
+const lastStage = storyStages.length - 1;
 
-function scrollTo(id: string) {
-  document
-    .getElementById(id)
-    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+function validStage(value: unknown) {
+  return typeof value === "number" && Number.isInteger(value)
+    ? Math.min(Math.max(value, 0), lastStage)
+    : 0;
 }
 
 export default function App() {
-  const [readiness, setReadiness] = useState(defaultReadiness);
+  const [stage, setStage] = useState(0);
   const [firstDecision, setFirstDecision] = useState<string | null>(null);
   const [transportDecision, setTransportDecision] = useState<string | null>(
     null,
   );
   const [plan, setPlan] = useState<FamilyPlan>(createEmptyPlan);
   const [restored, setRestored] = useState(false);
+  const stageMainRef = useRef<HTMLElement>(null);
+  const { reduceMotion } = useAccessibility();
 
   useEffect(() => {
     try {
       const saved = sessionStorage.getItem(storageKey);
       if (saved) {
         const state = JSON.parse(saved) as Partial<SessionState>;
-        if (state.readiness)
-          setReadiness({ ...defaultReadiness, ...state.readiness });
-        if (typeof state.firstDecision === "string")
-          setFirstDecision(state.firstDecision);
-        if (typeof state.transportDecision === "string") {
-          setTransportDecision(state.transportDecision);
-        }
+        const restoredFirstDecision =
+          typeof state.firstDecision === "string" ? state.firstDecision : null;
+        const restoredTransportDecision =
+          typeof state.transportDecision === "string"
+            ? state.transportDecision
+            : null;
+        let restoredStage = validStage(state.stage);
+
+        if (restoredStage >= 5 && !restoredFirstDecision) restoredStage = 4;
+        if (restoredStage >= 6 && !restoredTransportDecision) restoredStage = 5;
+
+        setStage(restoredStage);
+        setFirstDecision(restoredFirstDecision);
+        setTransportDecision(restoredTransportDecision);
         if (state.plan) setPlan({ ...createEmptyPlan(), ...state.plan });
       }
     } catch {
@@ -97,30 +100,38 @@ export default function App() {
   useEffect(() => {
     if (!restored) return;
     const state: SessionState = {
-      readiness,
+      stage,
       firstDecision,
       transportDecision,
       plan,
     };
     sessionStorage.setItem(storageKey, JSON.stringify(state));
-  }, [firstDecision, plan, readiness, restored, transportDecision]);
+  }, [firstDecision, plan, restored, stage, transportDecision]);
 
-  const hasBackup = readiness["getting-there"] === "ready";
+  useEffect(() => {
+    if (!restored) return;
+    const frame = requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [restored, stage]);
+
+  const hasBackup = firstDecision === "review-plan";
   const transportChoices = hasBackup
     ? transportChoicesWithBackup
     : transportChoicesWithoutBackup;
 
-  const preparedOutcome = useMemo(() => {
-    const discussedAreas = Object.values(readiness).filter(
-      (status) => status === "ready" || status === "discussed",
-    ).length;
-    return (
-      discussedAreas >= 3 &&
+  const preparedOutcome = useMemo(
+    () =>
       firstDecision === "review-plan" &&
       (transportDecision === "backup-transport" ||
-        transportDecision === "support-person")
-    );
-  }, [firstDecision, readiness, transportDecision]);
+        transportDecision === "support-person"),
+    [firstDecision, transportDecision],
+  );
+
+  function goToStage(nextStage: number) {
+    setStage(Math.min(Math.max(nextStage, 0), lastStage));
+  }
 
   function updatePlan(id: string, next: Partial<FamilyPlan[string]>) {
     setPlan((current) => ({
@@ -129,17 +140,21 @@ export default function App() {
     }));
   }
 
+  function chooseFirstDecision(choiceId: string) {
+    setFirstDecision(choiceId);
+    setTransportDecision(null);
+  }
+
   function retryDecision() {
     setFirstDecision(null);
     setTransportDecision(null);
-    scrollTo("first-decision");
+    goToStage(4);
   }
 
   function restartStory() {
-    setReadiness(defaultReadiness);
     setFirstDecision(null);
     setTransportDecision(null);
-    scrollTo("opening");
+    goToStage(0);
   }
 
   if (!restored) {
@@ -156,49 +171,43 @@ export default function App() {
     );
   }
 
-  return (
-    <div className="app-shell">
-      <ProgressNavigation />
-      <main>
-        <HeroScene onStart={() => scrollTo("readiness")} />
+  let stageContent: ReactNode;
 
+  switch (stage) {
+    case 0:
+      stageContent = <HeroScene onStart={() => goToStage(1)} />;
+      break;
+
+    case 1:
+      stageContent = (
         <StorySection id="readiness" className="readiness-section">
-          <div className="section-container">
-            <SectionIntro
-              title={pageCopy.readiness.title}
-              body={pageCopy.readiness.body}
-            />
-            <ReadinessProgress readiness={readiness} />
-            <div className="readiness-layout">
-              <figure className="scene-frame preparation-scene">
-                <img
-                  src={assetPath("readiness-table.webp")}
-                  alt="A family reviews a prepared bag, phone, contacts, transport choices, and a map together"
-                  width="1586"
-                  height="992"
-                  loading="lazy"
-                />
-                <figcaption>{pageCopy.readiness.caption}</figcaption>
-              </figure>
-              <div className="readiness-cards">
-                {readinessCards.map((card) => (
-                  <ReadinessCard
-                    key={card.id}
-                    {...card}
-                    status={readiness[card.id]}
-                    onStatusChange={(status) =>
-                      setReadiness((current) => ({
-                        ...current,
-                        [card.id]: status,
-                      }))
-                    }
-                  />
-                ))}
-              </div>
+          <div className="section-container preparation-stage-layout">
+            <div className="preparation-stage-copy">
+              <SectionIntro
+                title={pageCopy.readiness.title}
+                body={pageCopy.readiness.body}
+              />
+              <Button onClick={() => goToStage(2)}>
+                Continue the story
+                <ArrowRight size={20} weight="bold" aria-hidden="true" />
+              </Button>
             </div>
+            <figure className="scene-frame preparation-scene">
+              <img
+                src={assetPath("readiness-table.webp")}
+                alt="A family reviews a prepared bag, phone, contacts, transport choices, and a map together"
+                width="1586"
+                height="992"
+              />
+              <figcaption>{pageCopy.readiness.caption}</figcaption>
+            </figure>
           </div>
         </StorySection>
+      );
+      break;
 
+    case 2:
+      stageContent = (
         <StorySection id="assumptions" className="assumption-section">
           <div className="section-container assumption-layout">
             <SectionIntro
@@ -206,10 +215,14 @@ export default function App() {
               body={pageCopy.assumptions.body}
               inverse
             />
-            <AssumptionCard />
+            <AssumptionCard onComplete={() => goToStage(3)} />
           </div>
         </StorySection>
+      );
+      break;
 
+    case 3:
+      stageContent = (
         <StorySection id="story" className="character-section">
           <div className="character-scene">
             <img
@@ -217,7 +230,6 @@ export default function App() {
               alt="Amina and Nia sit with Community Health Promoter Wanjiku to discuss a family plan"
               width="1586"
               height="992"
-              loading="lazy"
             />
           </div>
           <div className="section-container character-content">
@@ -226,9 +238,19 @@ export default function App() {
               body={pageCopy.character.body}
             />
             <CharacterPerspective />
+            <div className="character-advance">
+              <Button onClick={() => goToStage(4)}>
+                Continue the story
+                <ArrowRight size={20} weight="bold" aria-hidden="true" />
+              </Button>
+            </div>
           </div>
         </StorySection>
+      );
+      break;
 
+    case 4:
+      stageContent = (
         <StorySection id="first-decision" className="decision-section">
           <div className="decision-image-panel">
             <img
@@ -236,7 +258,6 @@ export default function App() {
               alt="Amina tells Nia that something feels different while they sit at home in the evening"
               width="1586"
               height="992"
-              loading="lazy"
             />
           </div>
           <div className="decision-panel">
@@ -245,13 +266,17 @@ export default function App() {
               body={pageCopy.firstDecision.body}
               choices={firstDecisionChoices}
               selectedId={firstDecision}
-              onSelect={setFirstDecision}
-              onContinue={() => scrollTo("transport")}
+              onSelect={chooseFirstDecision}
+              onContinue={() => goToStage(5)}
             />
             <MedicalReviewNotice />
           </div>
         </StorySection>
+      );
+      break;
 
+    case 5:
+      stageContent = (
         <StorySection id="transport" className="transport-section">
           <div className="transport-backdrop" aria-hidden="true">
             <img
@@ -259,7 +284,6 @@ export default function App() {
               alt=""
               width="1586"
               height="992"
-              loading="lazy"
             />
           </div>
           <div className="section-container transport-content">
@@ -278,33 +302,30 @@ export default function App() {
               choices={transportChoices}
               selectedId={transportDecision}
               onSelect={setTransportDecision}
-              onContinue={() => scrollTo("outcome")}
+              onContinue={() => goToStage(6)}
               continueLabel={pageCopy.transport.action}
             />
           </div>
         </StorySection>
+      );
+      break;
 
+    case 6:
+      stageContent = (
         <StorySection id="outcome" className="outcome-section">
           <div className="section-container">
-            {transportDecision ? (
-              <StoryOutcome
-                prepared={preparedOutcome}
-                onRetry={retryDecision}
-                onBuildPlan={() => scrollTo("plan")}
-              />
-            ) : (
-              <div className="outcome-pending">
-                <h2>{pageCopy.outcome.pendingTitle}</h2>
-                <p>{pageCopy.outcome.pendingBody}</p>
-                <Button onClick={() => scrollTo("transport")}>
-                  Return to the decision
-                  <ArrowRight size={20} weight="bold" aria-hidden="true" />
-                </Button>
-              </div>
-            )}
+            <StoryOutcome
+              prepared={preparedOutcome}
+              onRetry={retryDecision}
+              onBuildPlan={() => goToStage(7)}
+            />
           </div>
         </StorySection>
+      );
+      break;
 
+    case 7:
+      stageContent = (
         <StorySection id="plan" className="plan-section">
           <div className="plan-scene" aria-hidden="true">
             <img
@@ -312,7 +333,6 @@ export default function App() {
               alt=""
               width="1586"
               height="992"
-              loading="lazy"
             />
           </div>
           <div className="section-container plan-content">
@@ -326,44 +346,95 @@ export default function App() {
               <p>{pageCopy.plan.privacy}</p>
             </div>
             <FamilyPlanBuilder plan={plan} onChange={updatePlan} />
-          </div>
-        </StorySection>
-
-        <StorySection id="closing" className="closing-section">
-          <div className="closing-image" aria-hidden="true">
-            <img
-              src={assetPath("family-planning.webp")}
-              alt=""
-              width="1586"
-              height="992"
-              loading="lazy"
-            />
-          </div>
-          <div className="closing-copy">
-            <h2>{pageCopy.closing.title}</h2>
-            <p>{pageCopy.closing.body}</p>
-            <div className="closing-actions">
-              <Button onClick={() => scrollTo("plan")}>
-                Review our plan
+            <div className="plan-stage-actions">
+              <Button onClick={() => goToStage(8)}>
+                Finish the story
                 <ArrowRight size={20} weight="bold" aria-hidden="true" />
               </Button>
-              <Button variant="secondary" onClick={restartStory}>
-                <ArrowCounterClockwise
-                  size={20}
-                  weight="bold"
-                  aria-hidden="true"
-                />
-                Play the story again
-              </Button>
             </div>
-            <MedicalReviewNotice />
           </div>
         </StorySection>
+      );
+      break;
+
+    default:
+      stageContent = (
+        <>
+          <StorySection id="closing" className="closing-section">
+            <div className="closing-image" aria-hidden="true">
+              <img
+                src={assetPath("family-planning.webp")}
+                alt=""
+                width="1586"
+                height="992"
+              />
+            </div>
+            <div className="closing-copy">
+              <h2>{pageCopy.closing.title}</h2>
+              <p>{pageCopy.closing.body}</p>
+              <div className="closing-actions">
+                <Button onClick={() => goToStage(7)}>
+                  Review our plan
+                  <ArrowRight size={20} weight="bold" aria-hidden="true" />
+                </Button>
+                <Button variant="secondary" onClick={restartStory}>
+                  <ArrowCounterClockwise
+                    size={20}
+                    weight="bold"
+                    aria-hidden="true"
+                  />
+                  Play the story again
+                </Button>
+              </div>
+              <MedicalReviewNotice />
+            </div>
+          </StorySection>
+          <footer className="site-footer">
+            <strong>Ready Together</strong>
+            <p>{pageCopy.footer}</p>
+          </footer>
+        </>
+      );
+  }
+
+  const activeStage = storyStages[stage];
+
+  return (
+    <div className="app-shell">
+      <ProgressNavigation
+        label={activeStage.label}
+        current={stage + 1}
+        total={storyStages.length}
+        onRestart={restartStory}
+      />
+      <main
+        ref={stageMainRef}
+        className="stage-main"
+        tabIndex={-1}
+        aria-label={`${activeStage.label}, ${stage + 1} of ${storyStages.length}`}
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={activeStage.id}
+            className="stage-transition"
+            initial={
+              reduceMotion ? false : { opacity: 0, x: 24, filter: "blur(5px)" }
+            }
+            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            exit={
+              reduceMotion
+                ? undefined
+                : { opacity: 0, x: -20, filter: "blur(4px)" }
+            }
+            transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+            onAnimationComplete={() =>
+              stageMainRef.current?.focus({ preventScroll: true })
+            }
+          >
+            {stageContent}
+          </motion.div>
+        </AnimatePresence>
       </main>
-      <footer className="site-footer">
-        <strong>Ready Together</strong>
-        <p>{pageCopy.footer}</p>
-      </footer>
     </div>
   );
 }

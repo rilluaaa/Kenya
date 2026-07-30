@@ -1,76 +1,15 @@
-import type {
-  PerspectiveId,
-  PlanItem,
-  ReadinessId,
-  ReadinessStatus,
-  StoryChoice,
-} from "../types";
+import type { PerspectiveId, PlanItem, StoryChoice } from "../types";
 
-export const sectionLinks = [
+export const storyStages = [
   { id: "opening", label: "Begin" },
-  { id: "readiness", label: "Prepare" },
-  { id: "assumptions", label: "Check" },
-  { id: "story", label: "Story" },
+  { id: "readiness", label: "Prepare together" },
+  { id: "assumptions", label: "Check assumptions" },
+  { id: "story", label: "Listen together" },
+  { id: "first-decision", label: "Choose a response" },
+  { id: "transport", label: "Make a backup" },
+  { id: "outcome", label: "See the outcome" },
   { id: "plan", label: "Our plan" },
-];
-
-export const readinessStatusLabels: Record<ReadinessStatus, string> = {
-  "still-to-decide": "Still to decide",
-  discussed: "Discussed",
-  ready: "Ready",
-  "needs-backup": "Needs a backup",
-};
-
-export const readinessCards: Array<{
-  id: ReadinessId;
-  title: string;
-  short: string;
-  topics: string[];
-}> = [
-  {
-    id: "what-we-need",
-    title: "What we need",
-    short: "Bring the practical essentials into one place.",
-    topics: [
-      "Important documents",
-      "Clothing and essential supplies",
-      "Phone and charging arrangements",
-      "Locally approved items for mother and newborn",
-    ],
-  },
-  {
-    id: "getting-there",
-    title: "Getting there",
-    short: "Plan the journey before it becomes urgent.",
-    topics: [
-      "Primary transport",
-      "Night-time availability",
-      "Travel time",
-      "Backup transport",
-    ],
-  },
-  {
-    id: "who-we-contact",
-    title: "Who we contact",
-    short: "Keep the right contacts easy to reach.",
-    topics: [
-      "Healthcare contact",
-      "Community health contact",
-      "Trusted family contact",
-      "Who is responsible for making the call",
-    ],
-  },
-  {
-    id: "who-does-what",
-    title: "Who does what",
-    short: "Give each person a clear responsibility.",
-    topics: [
-      "Who accompanies the pregnant woman",
-      "Who carries the prepared items",
-      "Who looks after other children",
-      "Who activates the backup plan",
-    ],
-  },
+  { id: "closing", label: "Finish" },
 ];
 
 export const assumptions = [
@@ -291,9 +230,10 @@ export const pageCopy = {
     caption: "Amina's family begins with a conversation at home.",
   },
   readiness: {
-    title: "How ready are we?",
-    body: "Open each part together. Choose the words that best describe where your family is today.",
-    caption: "Bring the plan into view before it is needed.",
+    title: "Put the practical plan in view.",
+    body: "Bring the bag, contacts, transport ideas, and family roles into one conversation before they are needed.",
+    caption:
+      "A shared plan begins when everyone can see the next practical step.",
   },
   assumptions: {
     title: "Assumption or reality?",
@@ -311,10 +251,10 @@ export const pageCopy = {
     kicker: "The original driver is unavailable.",
     withBackupTitle: "The backup plan is ready.",
     withBackupBody:
-      "Because the family prepared another option earlier, that choice is available now.",
+      "Reviewing the shared plan brings the family's agreed backup choices into view.",
     withoutBackupTitle: "A new transport plan is needed.",
     withoutBackupBody:
-      "No backup was confirmed earlier, so the family must find another way forward.",
+      "Because the shared plan was not checked first, the family must find another way forward now.",
     action: "See what happens next",
   },
   outcome: {
@@ -328,8 +268,6 @@ export const pageCopy = {
       title: "A conversation now can reduce pressure later.",
       body: "Different assumptions slow the next decision. Many families face these challenges. Discussing the plan early can make the next step clearer.",
     },
-    pendingTitle: "The story is waiting for your family.",
-    pendingBody: "Choose a transport response above to reveal the next part.",
   },
   plan: {
     eyebrow: "Take the conversation with you",
@@ -367,8 +305,7 @@ export const pageCopy = {
 export const contentByLocale = {
   en: {
     pageCopy,
-    readinessCards,
-    readinessStatusLabels,
+    storyStages,
     assumptions,
     assumptionResponseLabels,
     perspectives,

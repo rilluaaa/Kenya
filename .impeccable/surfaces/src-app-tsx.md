@@ -9,7 +9,7 @@ related_targets: ["src/styles.css", "src/data/content.ts"]
 
 ## Scope and mode
 
-One continuous responsive web route. Experience mode leads through the story; Operate mode takes over in the family-plan builder.
+One responsive route with nine gated scenes. Experience mode leads through the story; Operate mode takes over in the family-plan builder.
 
 ## Audience and job
 
@@ -17,11 +17,11 @@ Pregnant women and supporting family members in Kenya use one shared low-cost ph
 
 ## Action and proof
 
-The primary action is to start the journey. The surface proves its usefulness by making Section 2 readiness choices change the transport actions and final story outcome, then carrying those lessons into a printable plan.
+The primary action is to continue the story. Every scene stays hidden until the current interaction is complete. The first family decision changes the available transport actions and final outcome, then carries that lesson into a printable plan.
 
 ## Direction and memorable moment
 
-The Family Planning Table uses supplied screen-printed illustrations, forest and paper fields, terracotta actions, and handled decision surfaces. The memorable moment is the night transport challenge revealing a prepared backup only when the family discussed it earlier.
+The Family Planning Table uses supplied screen-printed illustrations, forest and paper fields, terracotta actions, and handled decision surfaces. The memorable moment is the night transport challenge revealing a prepared backup only when the family reviewed the plan first.
 
 ## Constraints
 
