@@ -3,11 +3,13 @@ import "./globals.css";
 import { AppProvider } from "@/components/AppContext";
 import { AppHeader, MobileNavigation, OfflineIndicator, StorageWarning } from "@/components/AppChrome";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
   title: { default: "Care Begins at Home", template: "%s | Care Begins at Home" },
   description: "Interactive maternal and newborn health learning for families and Community Health Promoters.",
-  manifest: "/manifest.webmanifest",
-  icons: { icon: "/icons/icon.svg", apple: "/icons/icon.svg" },
+  manifest: `${basePath}/manifest.webmanifest`,
+  icons: { icon: `${basePath}/icons/icon.svg`, apple: `${basePath}/icons/icon.svg` },
 };
 
 export const viewport: Viewport = { themeColor: "#174f3a", width: "device-width", initialScale: 1 };

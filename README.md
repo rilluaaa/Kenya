@@ -34,6 +34,11 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Deployment
+
+Pushes to `main` are built and deployed to GitHub Pages by `.github/workflows/deploy-pages.yml`.
+The production site is available at [https://rilluaaa.github.io/Kenya/](https://rilluaaa.github.io/Kenya/).
+
 ## Commands
 
 ```bash
