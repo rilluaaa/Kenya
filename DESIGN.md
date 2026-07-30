@@ -1,135 +1,153 @@
 ---
-name: Care Begins at Home
-description: A beautiful practical family handbook for shared health preparation
+name: Ready Together
+description: A warm, tactile family preparation story for maternal and newborn health.
 colors:
-  primary: "#174F3A"
-  primary-strong: "#103C2C"
-  accent: "#B9573F"
-  paper: "#FFFDF7"
-  sand: "#F3E9D7"
-  ink: "#17342A"
-  muted: "#596B63"
-  line: "#D7D2C5"
-  focus: "#F0B83F"
-  illustration-sun: "#E9B85D"
-  illustration-hill: "#9EB49A"
-  illustration-house: "#DFB277"
-  illustration-path: "#D9BC8D"
-  illustration-skin-deep: "#6F402E"
-  illustration-clay-light: "#D47C61"
+  forest: "#173F35"
+  forest-deep: "#102E28"
+  terracotta: "#B65032"
+  terracotta-deep: "#8E3B25"
+  sage: "#899879"
+  ochre: "#D8A43B"
+  ochre-bright: "#E2B75E"
+  paper: "#F6EDDA"
+  paper-deep: "#E8D7B8"
+  charcoal: "#26312D"
+  night-ink: "#0B211D"
+  white-ink: "#FFF9EE"
 typography:
   display:
-    fontFamily: "ui-sans-serif, system-ui, sans-serif"
-    fontSize: "3.5rem"
-    fontWeight: 780
-    lineHeight: 1.06
+    fontFamily: "Archivo Variable, Arial, sans-serif"
+    fontSize: "clamp(3.3rem, 5.2vw, 5.2rem)"
+    fontWeight: 650
+    lineHeight: 0.93
+    letterSpacing: "-0.055em"
+  headline:
+    fontFamily: "Archivo Variable, Arial, sans-serif"
+    fontSize: "clamp(2.7rem, 6vw, 5.8rem)"
+    fontWeight: 680
+    lineHeight: 0.98
+    letterSpacing: "-0.04em"
+  title:
+    fontFamily: "Archivo Variable, Arial, sans-serif"
+    fontSize: "clamp(1.3rem, 2vw, 1.9rem)"
+    fontWeight: 650
+    lineHeight: 1.3
   body:
-    fontFamily: "ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Atkinson Hyperlegible, Arial, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
-    lineHeight: 1.6
-  title:
-    fontFamily: "ui-sans-serif, system-ui, sans-serif"
-    fontSize: "2rem"
-    fontWeight: 750
-    lineHeight: 1.1
+    lineHeight: 1.55
   label:
-    fontFamily: "ui-sans-serif, system-ui, sans-serif"
-    fontSize: "0.8rem"
-    fontWeight: 780
-    lineHeight: 1.2
+    fontFamily: "Atkinson Hyperlegible, Arial, sans-serif"
+    fontSize: "0.8125rem"
+    fontWeight: 700
+    letterSpacing: "0.02em"
+  label-small:
+    fontFamily: "Atkinson Hyperlegible, Arial, sans-serif"
+    fontSize: "0.78rem"
+    fontWeight: 700
+    lineHeight: 1.1
 rounded:
+  hairline: "2px"
   detail: "4px"
-  illustration: "10px"
-  mark: "11px"
-  small: "12px"
+  xs: "8px"
+  sm: "12px"
   control: "14px"
-  surface: "16px"
-  pill: "999px"
+  panel: "22px"
+  scene: "30px"
+  organic: "110px"
 spacing:
-  compact: "8px"
-  regular: "16px"
-  section: "32px"
+  xs: "6px"
+  sm: "12px"
+  md: "20px"
+  lg: "32px"
+  xl: "56px"
+components:
+  button-primary:
+    backgroundColor: "{colors.terracotta}"
+    textColor: "{colors.white-ink}"
+    rounded: "{rounded.control}"
+    padding: "14px 22px"
+  card:
+    backgroundColor: "{colors.white-ink}"
+    textColor: "{colors.charcoal}"
+    rounded: "{rounded.panel}"
+    padding: "24px"
 ---
 
-# Design System: Care Begins at Home
+# Design System: Ready Together
 
 ## Overview
 
-**Creative North Star: "The Family Action Map"**
+**Creative North Star: "The Family Planning Table"**
 
-The interface borrows from the practical materials of a household visit: an illustrated community map, a plan written together, and clear cards that can be placed, checked, and revisited. It is expressive enough to feel human but always behaves like a dependable tool.
+The interface behaves like a family gradually placing decisions, contacts, and responsibilities onto one shared table. Tactile paper surfaces and full-width illustrated scenes make preparation feel human and collective, while strong editorial type keeps every step legible on a small phone.
 
-The design rejects hospital-dashboard chrome and ornamental nostalgia. Strong type, direct language, large controls, and a path motif keep the task legible in bright daylight and on narrow screens. On desktop, task and context form a genuine two-column workspace.
+The supplied screen-printed illustration set is visual authority. Interface texture is quieter than the artwork, with restrained grain, broad color fields, and a single terracotta action color.
 
 **Key Characteristics:**
-- Community scenes drawn as simple, original layered illustration.
-- One clear primary action per view.
-- Warm surfaces anchored by deep green and restrained terracotta.
-- Motion explains progress and consequence, never decorates idle screens.
+
+- Full-bleed illustrated story scenes with deliberate crops.
+- Large, compact sans-serif headlines and highly legible body copy.
+- Decision cards that feel placed and handled, not scored.
+- Day-to-night narrative pacing inside one coherent material world.
 
 ## Colors
 
-The committed earth-and-forest palette follows the brief, with terracotta reserved for learning emphasis rather than alarm.
+Forest carries trust and structure; terracotta is reserved for primary action; sage and ochre indicate discussion and attention without right-or-wrong judgment; paper tones keep long reading calm.
 
-**The Calm Signal Rule.** Red is reserved for genuine errors. Terracotta never impersonates an emergency state.
+**The Action Color Rule.** Terracotta is the only primary interactive accent. Ochre and sage communicate state but never compete as primary buttons.
 
 ## Typography
 
-**Display Font:** System UI workhorse stack
-**Body Font:** System UI workhorse stack
+**Display Font:** Archivo Variable (with Arial fallback)
 
-**Character:** Familiar, highly legible, and sturdy on common Android and desktop devices. Weight and size provide warmth and hierarchy without an institutional voice.
+**Body Font:** Atkinson Hyperlegible (with Arial fallback)
 
-**The Spoken Aloud Rule.** Every label should sound natural when read during a household conversation.
+**Character:** Archivo provides compact editorial authority without making public-health content feel institutional. Atkinson Hyperlegible supports shared-phone reading and ambiguous letter recognition.
 
 ## Layout
 
-The phone layout is a single clear column with persistent safe-area-aware bottom navigation. At 900px and above, stories and tools become a two-column workspace: context and illustration on the left, the active decision or form on the right. Spacing follows a 4/8/12/16/24/32 rhythm.
+The story uses a mobile-first single column. On desktop, scenes become asymmetric editorial spreads with 12-column placement, oversized image crops, and quiet margins. Each decision collapses to one focused mobile screen with content above thumb-reachable controls. Primary containers cap at 1440px.
 
 ## Elevation & Depth
 
-Surfaces separate through tone, borders, and spacing. Soft green-tinted shadows appear only where a card is actionable or currently lifted above the path.
-
-**The Grounded Surface Rule.** Nothing floats without communicating interaction or current focus.
+Depth comes from overlapping paper planes, tinted ambient shadows, and image crops. Cards remain flat at rest; hover and selected states lift by no more than 3px. Pure black shadows and luminous glows are not used.
 
 ## Shapes
 
-Cards and fields use 16px corners; buttons use 14px corners rather than pills. Circles are reserved for people, progress nodes, and single-icon controls.
+Buttons use 14px corners, decision surfaces use 22px, and major image scenes use 30px. These three roles remain consistent. Organic clipped backgrounds may use asymmetric radii, but controls never become pills.
 
 ## Components
 
 ### Buttons
-- **Shape:** Tactile rectangle with 14px corners and a minimum 48px height.
-- **Primary:** Homestead green with off-white text.
-- **Hover / Focus:** Darkens on hover, moves down one pixel on press, and receives a high-contrast double focus ring.
+
+Terracotta primary buttons use warm white text, a 14px radius, visible forest focus ring, and a small pressed translation. Secondary buttons use a forest outline on paper.
 
 ### Cards / Containers
-- **Corner Style:** Grounded 16px corners.
-- **Background:** Sunlit Paper or Woven Sand.
-- **Shadow Strategy:** Tinted shadow only for actionable cards.
-- **Border:** One subtle Dust Line border when needed.
+
+Decision cards use warm white or sage-tinted paper, one quiet border, and 22px corners. Selected states change the surface and border together and always include an icon plus text.
 
 ### Inputs / Fields
-- **Style:** White or paper field, visible border, 14px corners, label above.
-- **Focus:** Deep green border and external focus ring.
-- **Error / Disabled:** Text and icon cues accompany colour.
+
+Labels always sit above fields. Inputs use paper-white surfaces, charcoal text, 14px corners, and a high-contrast forest focus outline.
 
 ### Navigation
-- **Style:** Compact desktop header and four-item mobile bottom navigation. Active state uses both shape and text weight.
 
-### Journey Path
-
-A connected sequence of numbered nodes shows story position and cause-and-effect without presenting an exam score.
+The compact top bar shows the product name, a word-based journey state, and accessibility controls. It remains one line on desktop and reduces to essential controls on mobile.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** make every decision and plan step operable with a 44px or larger target.
-- **Do** pair icons and colour with plain text status.
-- **Do** keep the household path motif useful as a progress and journey device.
+
+- **Do** let the illustrations carry emotional tone and environment.
+- **Do** show readiness through language such as Ready, Discussed, Needs discussion, and Needs a backup.
+- **Do** keep all consequences supportive and reversible.
+- **Do** preserve generous tap targets and visible focus.
 
 ### Don't:
-- **Don't** use glass, neon, frightening imagery, or clinical dashboard patterns.
-- **Don't** present educational outcomes as medical success or failure.
-- **Don't** use long unbroken text, tiny metadata, decorative motion, or stereotypes.
+
+- **Don't** use scores, countdowns, red-versus-green correctness, or celebratory game effects.
+- **Don't** add unsupported cultural motifs outside the supplied illustrations.
+- **Don't** turn scenes into small decorative thumbnails or dashboard tiles.
+- **Don't** use glass, neon, medical stock photography, or charity-campaign tropes.

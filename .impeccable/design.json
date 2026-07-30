@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-30T15:00:00+08:00",
+  "title": "Design System: Ready Together",
+  "extensions": {
+    "colorMeta": {
+      "forest": {
+        "role": "primary",
+        "displayName": "Family Forest",
+        "canonical": "#173F35",
+        "tonalRamp": ["#102E28", "#173F35", "#DCE6DD"]
+      },
+      "terracotta": {
+        "role": "secondary",
+        "displayName": "Action Terracotta",
+        "canonical": "#B65032",
+        "tonalRamp": ["#8E3B25", "#B65032", "#F2D7CA"]
+      },
+      "ochre": {
+        "role": "tertiary",
+        "displayName": "Conversation Ochre",
+        "canonical": "#D8A43B",
+        "tonalRamp": ["#D8A43B", "#F4E2B9"]
+      },
+      "ochre-bright": {
+        "role": "tertiary",
+        "displayName": "Night Ochre",
+        "canonical": "#E2B75E",
+        "tonalRamp": ["#D8A43B", "#E2B75E", "#F4E2B9"]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Shared Paper",
+        "canonical": "#F6EDDA",
+        "tonalRamp": ["#E8D7B8", "#F6EDDA", "#FFF9EE"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Editorial Display",
+        "purpose": "Compact story headlines and decision moments."
+      },
+      "body": {
+        "displayName": "Shared Phone Reading",
+        "purpose": "High-legibility guidance, labels, and controls."
+      }
+    },
+    "shadows": [
+      {
+        "name": "paper-lift",
+        "value": "0 18px 48px rgb(64 45 27 / 0.15)",
+        "purpose": "Major handled-paper surfaces and illustrated scene frames."
+      },
+      {
+        "name": "paper-rest",
+        "value": "0 9px 24px rgb(64 45 27 / 0.12)",
+        "purpose": "Accordion groups and quiet interactive containers."
+      }
+    ],
+    "motion": [
+      {
+        "name": "story-reveal",
+        "value": "720ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Reveal one new story section as it enters the reading window."
+      },
+      {
+        "name": "control-response",
+        "value": "180ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Pressed and selected control feedback."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Terracotta action with physical pressed feedback and a forest focus ring.",
+      "html": "<button class=\"button button-primary\">Continue</button>",
+      "css": ".button-primary { color: #fff9ee; background: #b65032; border-radius: 14px; min-height: 52px; box-shadow: 0 10px 0 #8e3b25; }"
+    },
+    {
+      "name": "Decision Surface",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "A readable paper plane that changes fill, border, icon, and language when selected.",
+      "html": "<button class=\"decision-option\" aria-pressed=\"false\">Choice</button>",
+      "css": ".decision-option { min-height: 66px; padding: 15px 18px; border: 1px solid #c9bda5; border-radius: 14px; background: #f6edda; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Family Planning Table",
+    "overview": "The family gradually places responsibilities, contacts, transport choices, and prepared items into one shared view. Full-width illustrations carry emotion while the interface remains practical and legible.",
+    "keyCharacteristics": [
+      "Full-bleed illustrated story scenes",
+      "Handled-paper decision surfaces",
+      "Word-based readiness instead of scores",
+      "Day-to-night narrative pacing"
+    ],
+    "rules": [
+      {
+        "name": "The Action Color Rule",
+        "body": "Terracotta is the only primary action color. Sage and ochre communicate state.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Let the supplied illustrations carry emotional tone.",
+      "Keep consequences supportive and reversible.",
+      "Use large touch targets and visible focus."
+    ],
+    "donts": [
+      "Do not use scores or countdowns.",
+      "Do not add unsupported cultural motifs.",
+      "Do not use glass, neon, or medical stock imagery."
+    ]
+  }
+}

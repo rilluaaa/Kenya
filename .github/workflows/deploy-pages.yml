@@ -34,14 +34,12 @@ jobs:
         run: npm ci
 
       - name: Build static site
-        env:
-          NEXT_PUBLIC_BASE_PATH: /Kenya
         run: npm run build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ./dist
 
   deploy:
     environment:

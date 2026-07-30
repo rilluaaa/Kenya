@@ -8,48 +8,47 @@ web
 
 ## Users
 
-- Women and families in Kenya preparing for birth and the early newborn period, often using a vertically held mobile phone at home.
-- Community Health Promoters supporting practical, non-clinical household conversations and follow-up.
+Pregnant women in Kenya and the partners, parents, older relatives, and other family members supporting them. The first prototype is designed for a family to use together at home on one shared, low-cost smartphone.
 
 ## Product Purpose
 
-Care Begins at Home turns maternal and newborn health education into practical stories, plans, learning cards, and guided conversations. Success means people can agree on concrete next steps before care is needed, without the product presenting diagnosis or replacing professional assessment.
+Ready Together helps a family discuss and record practical childbirth preparations before labour begins. Success means the family leaves with clearer roles, contact and transport arrangements, a backup plan, and a printable family-plan summary.
 
 ## Positioning
 
-The product rehearses household decisions through a branching story and converts those decisions into reusable planning tools for families and Community Health Promoters.
+The product turns preparation guidance into one continuous, choice-driven family story. Readiness is expressed through reassuring states and practical consequences, never a score or examination.
 
 ## Operating Context
 
-The experience is designed for mobile use in homes and community visits, including intermittent connectivity, limited reading time, shared-device use, and conversations involving several family members. Desktop use is a true two-column workspace rather than a stretched mobile shell.
+The experience is self-guided, takes approximately 8-12 minutes, and is used by two or more people around one phone. It combines preparation cards, assumption checks, a branching story about Amina and her family, and a family-plan builder. Progress is retained only for the current browser session.
 
 ## Capabilities and Constraints
 
-- Exactly two modes: Women and Families; Community Health Promoters.
-- Next.js App Router, TypeScript, Tailwind CSS, reusable components, structured content, browser-local persistence, and practical PWA support.
-- No accounts, database, tracking, advertising, external data sync, diagnosis, medical records, or paid services.
-- English is complete. Kiswahili demonstrates localisation through reviewed placeholders or English fallbacks marked for review.
-- Medical learning content remains editable and visibly marked in code for Kenyan clinical review.
+- React, TypeScript, Tailwind CSS, and lightweight animation.
+- No backend and no collection of personal medical information.
+- Educational and medical statements remain clearly marked for review by qualified Kenyan maternal-health professionals.
+- Structured content is separated from components and prepared for future English and Kiswahili localisation.
+- The experience supports keyboard navigation, reduced motion, low bandwidth, printing, replay, and session recovery.
+- It must not diagnose, generate medical advice, or imply guaranteed medical outcomes.
 
 ## Brand Commitments
 
-- Working name: Care Begins at Home.
-- Voice: warm, human, grounded, reassuring, plain, and never frightening.
-- Visual direction: a beautiful practical family handbook, using warm earth tones, deep green, terracotta, and original illustration.
-- Kenyan representation should be contemporary and broadly respectful, without unsupported regional or ethnic specificity.
+The product name is Ready Together. The voice is warm, direct, reassuring, respectful, and non-judgmental. The supplied illustration set establishes the recurring family, Community Health Promoter, home, landscape, and tactile print texture. Avoid hospital advertising, charity stereotypes, poverty imagery, fear, childish gamification, unsupported cultural details, glassmorphism, and neon color.
 
 ## Evidence on Hand
 
-The supplied product brief is the sole source of product and prototype content. No clinical review, commissioned artwork, testimonials, performance claims, or approved Kiswahili translations have been supplied, so the application must not fabricate them.
+- Full product and content brief supplied as `/Users/ron/.codex/attachments/2e9954b9-3957-42ce-aa07-2be053d0b877/pasted-text.txt`.
+- Six supplied editorial illustrations depicting the same family across preparation, consultation, night-time decision, and travel contexts.
+- No medically reviewed final copy is available. All educational examples must be labelled as review placeholders.
 
 ## Product Principles
 
-- Help people act together, not pass an exam.
-- Show the practical effect of a decision before offering reflection.
-- Keep private information minimal, anonymous, and on the current device.
-- Make every primary task usable with one hand on a narrow phone.
-- Treat all medical and localisation content as reviewable programme material.
+- Preparation is a shared family responsibility.
+- Explain consequences without blame.
+- Turn every learning moment into a practical decision.
+- Keep the experience usable on one shared, low-cost phone.
+- Make uncertainty and unfinished planning feel normal and actionable.
 
 ## Accessibility & Inclusion
 
-Use semantic HTML, keyboard navigation, visible focus, strong contrast, large touch targets, reduced-motion support, captions or text alternatives for audio, and redundant cues beyond colour. The experience must tolerate low literacy and invalid or unavailable local data.
+Use large readable type, generous touch targets, visible focus, semantic HTML, screen-reader labels, reduced-motion support, and graceful low-bandwidth fallbacks. Avoid assuming literacy, device performance, family structure, transport access, or medical outcomes beyond the supplied brief.

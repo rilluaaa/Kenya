@@ -1,8 +1,4 @@
-node_modules
-.next
-out
-.DS_Store
-*.log
-.env*
-coverage
+node_modules/
+dist/
 *.tsbuildinfo
+.DS_Store
